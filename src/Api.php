@@ -22,13 +22,20 @@ function xchat_server_push()
 	
 	header('Content-Type: text/event-stream');
 
-	$data = array(
-			'user_id' => 1,
-			'body' => 'Hello!',
-		);
+	// Should transfer this
+	require_once XCHAT_DIR . '/src/Message.php';
+	require_once XCHAT_DIR . '/src/MessageCrud.php';
 	
-	echo "data: " . json_encode( $data ) . "\n\n";;
+	$message = new XChat\Message\Message();
+	$message->set_receiver_id(1);
+	
+	$sender = new XChat\Message\Crud( $message );
+	$user_messages = $sender->get_user_messages();
 
+	$data = array( 'messages' => $user_messages );
+
+	echo "data: " . json_encode( $data ) . "\n\n";;
+	
 	return 0;
 
 }
