@@ -15,8 +15,10 @@
 
 add_action('init', 'xchat_loader');
 define( 'XCHAT_VERSION', 1.0 );
+define( 'XCHAT_DIR', __DIR__);
+require_once XCHAT_DIR . '/src/Install.php';
+
 function xchat_loader() {
-	require_once __DIR__ . '/src/Enqueue.php';
-	require_once __DIR__ . '/src/Message.php';
-	require_once __DIR__ . '/src/API.php';
+	require_once XCHAT_DIR . '/src/Enqueue.php';
+	require_once XCHAT_DIR . '/src/API.php';
 }
